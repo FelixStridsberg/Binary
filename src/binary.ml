@@ -1,3 +1,12 @@
+let input_i16le ic =
+  let b0 = input_byte ic in
+  let b1 = input_byte ic in
+  (b1 lsl 8) lor b0
+
+let input_i16be ic =
+  let b0 = input_byte ic in
+  let b1 = input_byte ic in
+  (b0 lsl 8) lor b1
 
 let input_i32le ic =
   let b0 = input_byte ic in

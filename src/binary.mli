@@ -1,5 +1,11 @@
 (** Common binary input functions. *)
 
+val input_i16le : in_channel -> int
+(** 16 bit integer, little endian. *)
+
+val input_i16be : in_channel -> int
+(** 16 bit integer, big endian. *)
+
 val input_i32le : in_channel -> int
 (** 32 bit integer, little endian. *)
 

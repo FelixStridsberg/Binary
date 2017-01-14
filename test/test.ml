@@ -10,6 +10,24 @@ let close_pipe in_chan out_chan =
   close_in in_chan;
   close_out out_chan
 
+let i16le _ =
+  let in_chan, out_chan = open_pipe () in
+  let bin = [0x03; 0x01;] in
+  List.iter (output_byte out_chan) bin;
+  flush out_chan;
+  let res = Binary.input_i16le in_chan in
+  assert_equal ~printer:string_of_int 259 res;
+  close_pipe in_chan out_chan
+
+let i16be _ =
+  let in_chan, out_chan = open_pipe () in
+  let bin = [0x01; 0x03;] in
+  List.iter (output_byte out_chan) bin;
+  flush out_chan;
+  let res = Binary.input_i16be in_chan in
+  assert_equal ~printer:string_of_int 259 res;
+  close_pipe in_chan out_chan
+
 let i32le _ =
   let in_chan, out_chan = open_pipe () in
   let bin = [0x82; 0x53; 0x5d; 0x00;] in
@@ -66,7 +84,9 @@ let f64be _ =
 
 let suite =
   "Test all" >:::
-    ["i32le" >:: i32le;
+    ["i16le" >:: i16le;
+     "i16be" >:: i16be;
+     "i32le" >:: i32le;
      "i32be" >:: i32be;
      "i64le" >:: i64le;
      "i64be" >:: i64be;
