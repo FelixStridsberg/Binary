@@ -7,7 +7,7 @@ well, but I've not used it for that yet.
 
 ## Install in ocamlfind
 
-``
+```
 make
 make install
-``
+```
