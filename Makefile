@@ -1,9 +1,9 @@
 TEST_PACKAGES = ounit
 
-CC = ocamlfind ocamlopt
+OCAMLFIND = ocamlfind
+OCAMLOPT = ocamlopt
 
 C_FLAGS = -package $(TEST_PACKAGES) -c -I src/ -I src/pages/
-L_FLAGS =
 
 TEST_L_FLAGS = -linkpkg -package $(TEST_PACKAGES)
 
@@ -18,17 +18,18 @@ TEST_SOURCES =				\
 	test/test.cmx
 
 lib: $(INTERFACES) $(SOURCES)
-	mkdir -p dist/
-	cp src/binary.cm* dist/
+
+install: lib
+	ocamlfind install binary src/*
 
 test_runner: $(INTERFACES) $(TEST_SOURCES)
-	$(CC) $(TEST_L_FLAGS) -o $@ $(TEST_SOURCES)
+	$(OCAMLFIND) $(OCAMLOPT) $(TEST_L_FLAGS) -o $@ $(TEST_SOURCES)
 
 %.cmi: %.mli
-	$(CC) $(C_FLAGS) $<
+	$(OCAMLFIND) $(OCAMLOPT) $(C_FLAGS) $<
 
 %.cmx: %.ml
-	$(CC) $(C_FLAGS) $<
+	$(OCAMLFIND) $(OCAMLOPT) $(C_FLAGS) $<
 
 clean:
 	rm -f src/*.o src/*.cmx src/*.cmi

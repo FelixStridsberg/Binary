@@ -1,0 +1,4 @@
+name="binary"
+description="Simple binary input functions missing in pervasives"
+version="0.1"
+archive(native)="binary.cmx"
